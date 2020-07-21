@@ -46,7 +46,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                             new ArrayList<>())
             );
         } catch (IOException e) {
-            String userLoginFailureMessage = String.format("{\"EventDate\":\"%s\", \"EventType\": \"UserLogin\", \"EventMsg\":\"Failrue\"}", new Date().toString());
+            String userLoginFailureMessage = String.format("{\"EventDate\":\"%s\", \"EventType\": \"UserLoginException\", \"EventMsg\":\"%s\"}", new Date().toString(), e.getMessage());
             log.info(userLoginFailureMessage);
             throw new RuntimeException(e);
         }

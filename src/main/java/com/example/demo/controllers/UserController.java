@@ -59,13 +59,13 @@ public class UserController {
 		user.setUsername(createUserRequest.getUsername());
 		Cart cart = new Cart();
 		String userCreateSuccessMessage = String.format("{\"EventDate\":\"%s\", \"EventType\": \"UserCreation\", \"EventMsg\":\"Success\"}", new Date().toString());
-		String userCreateFailureMessage = String.format("{\"EventDate\":\"%s\", \"EventType\": \"UserCreation\", \"EventMsg\":\"Failure\"}", new Date().toString());
+		String userCreateExceptionMessage = String.format("{\"EventDate\":\"%s\", \"EventType\": \"UserCreationException\", \"EventMsg\":\"Eihter password was too short or confirmation field did not mactch.\"}", new Date().toString());
 
 		cartRepository.save(cart);
 		user.setCart(cart);
 		if (createUserRequest.getPassword().length() < 7 ||
 				!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
-			log.info(userCreateFailureMessage);
+			log.info(userCreateExceptionMessage);
 			return ResponseEntity.badRequest().build();
 		}
 
